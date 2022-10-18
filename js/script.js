@@ -6,42 +6,44 @@
 const playBtn = document.getElementById("play-btn");
 console.log(playBtn);
 const wrapper = document.getElementById("wrapper");
-let arrayRndOrder = [];
-let numberCellsToGen = "100";
+let indexBombs = [];
+let numberCellsToGen = 100;
 const difficultSelect = document.getElementById("difficult");
 let cellSize = "cellx100"
 
+
 // at click
 playBtn.addEventListener("click", function(){
-    // if array if filled empty
-    if (arrayRndOrder.length) {
-        wrapper.innerHTML = "";
-        arrayRndOrder = [];
-    }
+
+    // reset
+    playBtn.innerHTML = "RESTART";
+    wrapper.innerHTML = "";
+    indexBombs = [];
     
     // difficult selection var changes
     const difficult = parseInt(difficultSelect.value);
     console.log(difficult);
     
     if (difficult === 3) {
-        numberCellsToGen = "100";
+        numberCellsToGen = 100;
         cellSize = "cellx100"; 
         
     } else if (difficult === 2){
-        numberCellsToGen = "81";
+        numberCellsToGen = 81;
         cellSize = "cellx81"; 
         
     } else if (difficult === 1){
-        numberCellsToGen = "49";
+        numberCellsToGen = 49;
         cellSize = "cellx49";
     }
     
-    // generate random number array       
-    arrayRndOrder = rndNumberOrderGen(numberCellsToGen);
+    // generate random bomb array      
+    indexBombs = rndNumberOrderGen(numberCellsToGen);
+    console.log(indexBombs);
     
     // for each numbers of array 
-    for (let i = 0; i < arrayRndOrder.length; i++){
-        const thisNumber = arrayRndOrder[i];
+    for (let i = 0; i < numberCellsToGen; i++){
+        const thisNumber = i + 1;
         // generate cells
         const thisCell = cellGenerator();
         // at cells click
@@ -51,19 +53,8 @@ playBtn.addEventListener("click", function(){
         // append cells on DOM
         wrapper.append(thisCell)
     };
-    
 
 });
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -75,7 +66,8 @@ playBtn.addEventListener("click", function(){
  */
 function rndNumberOrderGen(cellNumbers) {
     const arrayNumbers = [];
-    while (arrayNumbers.length < cellNumbers) {
+    while (arrayNumbers.length < 16) {
+    
         const rndNumber = Math.floor(Math.random() * (cellNumbers - 1 + 1) ) + 1;
         // if number is included in array DONT push
         if (!arrayNumbers.includes(rndNumber)) {
@@ -102,7 +94,7 @@ function cellGenerator() {
 };
 
 /**
- * Description: toggle cells and 
+ * Description: toggle cells and bomb style
  * @returns {any}
  */
 function cellClick(){
@@ -110,21 +102,17 @@ function cellClick(){
     console.log(innerNumber);
 
     let clickOrBomb = "";
-
-    // create arrayBomb numerated 1 to 16
-    let arrayBomb = []
-    for (let i = 1; i <= 16; i++) {
-        // if innerNumber is 1 to 16
-        if (innerNumber === i){
-            // add bomb class
-            clickOrBomb = "bomb";
-        } else { 
-            // add clicked btn
-            clickOrBomb = "clicked-btn";
-        }
-        arrayBomb.push(i);
+    
+    if (indexBombs.includes(innerNumber)){
+        // add bomb class
+        clickOrBomb = "bomb";
+        this.classList.add(`${clickOrBomb}`);
+        
+    } else { 
+        // add clicked btn
+        clickOrBomb = "clicked-btn";
+        this.classList.add(`${clickOrBomb}`);
     }
 
-    // add on classlist
-    this.classList.add(`${clickOrBomb}`);
+    
 };
