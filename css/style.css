@@ -1,0 +1,49 @@
+body{
+    background-color: rgb(35, 35, 35);
+    color: white;
+    font-weight: 600;
+}
+
+.ms-btn{
+    background-color: coral;
+    border-radius: 10px;
+    padding: 1rem 2rem;
+    display: inline-block;
+}
+
+.ms-grid{
+    width: 500px;
+    height: 500px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    margin: 2rem auto;
+}
+
+
+.cellx100{
+    width: calc(100% / 10);
+    height: calc(100% / 10);
+}
+
+.cellx81{
+    width: calc(100% / 9);
+    height: calc(100% / 9);
+}
+
+.cellx49{
+    width: calc(100% / 7);
+    height: calc(100% / 7);
+}
+
+.ms-cell{
+    border: 1px solid white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.clicked-btn{
+    background-color: rgba(255, 255, 255, 0.406);
+}
