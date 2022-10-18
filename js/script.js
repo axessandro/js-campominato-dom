@@ -10,8 +10,6 @@ let arrayRndOrder = [];
 let numberCellsToGen = "100";
 const difficultSelect = document.getElementById("difficult");
 let cellSize = "cellx100"
-let arrayBombs = [];
-
 
 // at click
 playBtn.addEventListener("click", function(){
@@ -27,15 +25,15 @@ playBtn.addEventListener("click", function(){
     
     if (difficult === 3) {
         numberCellsToGen = "100";
-        cellSize = "cellx100" 
+        cellSize = "cellx100"; 
         
     } else if (difficult === 2){
         numberCellsToGen = "81";
-        cellSize = "cellx81" 
+        cellSize = "cellx81"; 
         
     } else if (difficult === 1){
         numberCellsToGen = "49";
-        cellSize = "cellx49" 
+        cellSize = "cellx49";
     }
     
     // generate random number array       
@@ -54,14 +52,7 @@ playBtn.addEventListener("click", function(){
         wrapper.append(thisCell)
     };
     
-    // for numbers
-    for (let i = 0; i <= 15; i++){
-        let thisBomb = arrayRndOrder[i]
-        if (thisBomb = cellGenerator.innerHTML) {
-            alert("bomba")
-        }
-    }
-    
+
 });
 
 
@@ -93,7 +84,7 @@ function rndNumberOrderGen(cellNumbers) {
     }
     // return arraynumbers
     return arrayNumbers;
-}
+};
 
 /**
  * Description: generate cells
@@ -108,16 +99,32 @@ function cellGenerator() {
     cell.classList.add(`${cellSize}`);
     //  return cells
     return cell;
-}
+};
 
 /**
- * Description: toggle cells
+ * Description: toggle cells and 
  * @returns {any}
  */
 function cellClick(){
-    this.classList.add("clicked-btn")
     const innerNumber = parseInt(this.textContent);
     console.log(innerNumber);
-    
 
-}
+    let clickOrBomb = "";
+
+    // create arrayBomb numerated 1 to 16
+    let arrayBomb = []
+    for (let i = 1; i <= 16; i++) {
+        // if innerNumber is 1 to 16
+        if (innerNumber === i){
+            // add bomb class
+            clickOrBomb = "bomb";
+        } else { 
+            // add clicked btn
+            clickOrBomb = "clicked-btn";
+        }
+        arrayBomb.push(i);
+    }
+
+    // add on classlist
+    this.classList.add(`${clickOrBomb}`);
+};
